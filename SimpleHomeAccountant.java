@@ -21,7 +21,7 @@ public class SimpleHomeAccountant {
         counterGUI.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
-        JButton newBugget = new JButton("Новый бюджет");
+        JButton newBugget = new JButton("Новый бюджет на месяц");
         JButton newDebet = new JButton("Приход");
         JButton newCredit = new JButton("Расход");
 
