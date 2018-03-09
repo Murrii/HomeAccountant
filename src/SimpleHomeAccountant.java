@@ -1,18 +1,22 @@
 import homeAcountant.Budget;
+import homeAcountant.ReactButtons;
+import homeAcountant.SavingFile;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.io.IOException;
+
 public class SimpleHomeAccountant {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         initFrame();
     }
 
-    static void initFrame(){
+    static void initFrame() throws IOException {
 
-        Budget currentBugget = new Budget(10000, "Март");
+        Budget currentBugget = new Budget(0,null, null);
 
         JFrame counterGUI = new JFrame();
         counterGUI.setVisible(true);
@@ -32,12 +36,11 @@ public class SimpleHomeAccountant {
         ActionListener newBuggetListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                String textBugget = JOptionPane.showInputDialog("Введите стартовый бюджет");
-                String currentMonth = JOptionPane.showInputDialog("Введите текущий месяц");
-                currentBugget.setBudget(Integer.parseInt(textBugget));
-                currentBugget.setMonth(currentMonth);
-                currentBugget.getBudget();
+                try {
+                    ReactButtons.initNewBuddget();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         };
 
@@ -46,10 +49,7 @@ public class SimpleHomeAccountant {
         ActionListener newDebetListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String textDebet = JOptionPane.showInputDialog("Введите сумму дохода в рублях");
-                String textType = JOptionPane.showInputDialog("Введите тип дохода");
-                currentBugget.debet(textType, Integer.parseInt(textDebet));
-                currentBugget.getBudget();
+                ReactButtons.initDebet(currentBugget);
             }
         };
 
@@ -58,9 +58,7 @@ public class SimpleHomeAccountant {
         ActionListener newCreditListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String textCredit = JOptionPane.showInputDialog("Введити сумму расходов");
-                currentBugget.credit(Integer.parseInt(textCredit));
-                currentBugget.getBudget();
+                ReactButtons.initCredit(currentBugget);
             }
         };
 
