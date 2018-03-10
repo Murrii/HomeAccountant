@@ -2,13 +2,16 @@ package homeAcountant;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SavingFile extends File {
 
-    static String savePath = "C:\\HomeAccountant";
+    private static File dir = new File("C:\\HomeAccountant");
 
-    public static String getPathname(String filename) {
-        String pathname = savePath + "\\" + filename + ".txt";
+    public static String getPathname(String filename) { ;
+        String pathname = dir.toString() + "\\" + filename + ".txt";
         return pathname;
     }
 
@@ -20,6 +23,13 @@ public class SavingFile extends File {
         super(pathname);
         getParentFile().mkdir();
         createNewFile();
-        System.out.println("создан файл сохранения" + pathname);
+        System.out.println("создан файл сохранения " + pathname);
+        showAllBudgets(dir);
+    }
+
+    public static void showAllBudgets(File dir) {
+        File[] allBudgets = dir.listFiles();
+        List<File> budgetList = Arrays.asList(allBudgets);
+        System.out.println("Все доступные бюджеты: " + budgetList);
     }
 }

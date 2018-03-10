@@ -6,27 +6,13 @@ import java.io.IOException;
 
 public class ReactButtons {
 
-   public static Budget initNewBuddget(Budget currentBugget, SavingFile saveBudget) throws IOException{
-       String name = initName("ведите название для нового бюджета");
-       int summ = initSumm();
-       String pathname = SavingFile.getPathname(name);
-
-       SavingFile savingFile = new SavingFile(pathname);
-       Budget currentBudget = new Budget(summ, name, savingFile);
-       currentBudget.getBudget();
-       return currentBudget;
-   }
-
-   public static Budget setBudget(Budget budget){
-       return budget;
-   }
-
    public static void initNewStartSumm(Budget currentBudget, SavingFile saveBudget) throws IOException {
        int startSumm = initSumm();
        currentBudget.setBudget(startSumm);
        String text = "%" + startSumm + "%" + '\n' + '\r';
        saving(text, saveBudget);
        System.out.println("Установлена стартовая сумма " + startSumm);
+
    }
 
     public static void initDebet(Budget currentBugget, SavingFile saveBudget) throws IOException {
