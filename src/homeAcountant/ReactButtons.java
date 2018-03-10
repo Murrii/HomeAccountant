@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ReactButtons {
 
-   public static Budget initNewBuddget() throws IOException{
+   public static Budget initNewBuddget(Budget currentBugget, SavingFile saveBudget) throws IOException{
        String name = initName("ведите название для нового бюджета");
        int summ = initSumm();
        String pathname = SavingFile.getPathname(name);
@@ -21,41 +21,47 @@ public class ReactButtons {
        return budget;
    }
 
+   public static void initNewStartSumm(Budget currentBudget, SavingFile saveBudget) throws IOException {
+       int startSumm = initSumm();
+       currentBudget.setBudget(startSumm);
+       String text = "%" + startSumm + "%" + '\n' + '\r';
+       saving(text, saveBudget);
+       System.out.println("Установлена стартовая сумма " + startSumm);
+   }
 
-    public static void initDebet(Budget currentBugget){
+    public static void initDebet(Budget currentBugget, SavingFile saveBudget) throws IOException {
         int summ = initSumm();
         String type = initType();
         currentBugget.budget += summ;
-        String text = "Внесено " + summ + " рублей. Тип дохода: " + type + "; " + '\n';
-
+        String text = "$" + summ + "$" + "&" + type + "&" + '\n' + '\r';
+        System.out.println("Внесено" + summ + " рублей. Тип дохода: " + type + "; ");
+        saving(text, saveBudget);
         currentBugget.getBudget();
     }
 
-    public static void initCredit(Budget currentBugget){
+    public static void initCredit(Budget currentBugget, SavingFile saveBudget) throws IOException {
         int summ = initSumm();
         String type = initType();
         currentBugget.budget -= summ;
-        String text = "Потрачено " + summ + " рублей. Тип расхода: " + type + "; " + '\n';
-        System.out.println(text);
-
+        String text = "$" + "-" + summ + "$" + "&" + type + "&" + '\n' + '\r';
+        System.out.println("Потрачено \" + summ + \" рублей. Тип расхода: \" + type + \"; \"");
+        saving(text, saveBudget);
         currentBugget.getBudget();
     }
 
-   //     FileWriter saveDebet = new FileWriter(savingFile, true);
-    //    saveDebet.write(text);
-    //    saveDebet.append('\n');
-    //    saveDebet.flush();
-
-
-
-
+    public static void saving(String text, SavingFile savingFile) throws IOException {
+        FileWriter saveDebet = new FileWriter(savingFile, true);
+        saveDebet.write(text);
+        saveDebet.flush();
+        saveDebet.close();
+        System.out.println("данные сохранены");
+    }
 
     public static int initSumm() {
         String textSumm = JOptionPane.showInputDialog("Введите сумму в рублях");
         int newSumm = Integer.parseInt(textSumm);
         System.out.println("принята сумма: " + newSumm);
         return newSumm;
-
     }
 
     public static String initType() {
@@ -69,5 +75,4 @@ public class ReactButtons {
         System.out.println("Принято: " + name);
         return type;
     }
-
 }

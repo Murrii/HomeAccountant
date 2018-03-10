@@ -1,9 +1,5 @@
 package homeAcountant;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Budget {
 
     int budget;
